@@ -169,11 +169,13 @@ body {
 
 /* 🔥 LOGO CORRIGIDA */
 .store-contact .logo {
-  width: 180px;          /* AQUI está o ajuste */
+  width: 280px;          
   max-width: 90%;
   height: auto;
   margin: 0 auto 28px;
   display: block;
+  display: flex;
+  align-items: flex-start;
 }
 
 .contact-buttons {
@@ -321,4 +323,44 @@ body {
   .store-contact .logo {
     width: 140px;
   }
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 14px;
+  margin: 40px 0 20px;
+  font-family: "Montserrat", sans-serif;
+}
+
+.pagination button {
+  min-width: 84px;
+  height: 44px;
+  border-radius: 10%;
+  border: 1px solid #c9b37e;
+  background: transparent;
+  color: #c9b37e;
+  font-size: 20px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.pagination button:hover {
+  background: #c9b37e;
+  color: #111;
+  transform: translateY(-2px);
+}
+
+.pagination button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  transform: none;
+}
+
+#pageInfo {
+  font-size: 14px;
+  letter-spacing: 0.5px;
+  color: #555;
 }

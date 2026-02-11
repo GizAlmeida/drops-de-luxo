@@ -1,69 +1,106 @@
-document.addEventListener("DOMContentLoaded", () => {
-  const searchInput = document.getElementById("searchInput");
-  const allCards = [...document.querySelectorAll(".perfume-card")];
-  const pageInfo = document.getElementById("pageInfo");
-  const prevBtn = document.getElementById("prevPage");
-  const nextBtn = document.getElementById("nextPage");
+// ==============================
+// ELEMENTOS
+// ==============================
+const searchInput = document.getElementById("searchInput");
+const cards = Array.from(document.querySelectorAll(".perfume-card"));
+const prevBtn = document.getElementById("prevPage");
+const nextBtn = document.getElementById("nextPage");
+const pageNumbersContainer = document.getElementById("pageNumbers");
 
-  let currentPage = 1;
-  const itemsPerPage = 9;
-  let filteredCards = [...allCards];
+// ==============================
+// CONFIG
+// ==============================
+let currentPage = 1;
+const itemsPerPage = 8;
 
-  function renderPage() {
-    allCards.forEach(card => (card.style.display = "none"));
+// ==============================
+// FUNÇÕES
+// ==============================
+function getFilteredCards() {
+  if (!searchInput || searchInput.value.trim() === "") {
+    return cards;
+  }
 
-    const start = (currentPage - 1) * itemsPerPage;
-    const end = start + itemsPerPage;
+  const value = searchInput.value.toLowerCase().trim();
 
-    filteredCards.slice(start, end).forEach(card => {
-      card.style.display = "block";
-    });
+  return cards.filter(card =>
+    card.dataset.name &&
+    card.dataset.name.toLowerCase().includes(value)
+  );
+}
 
-    const totalPages = Math.max(
-      1,
-      Math.ceil(filteredCards.length / itemsPerPage)
-    );
+function renderPagination(totalPages) {
+  pageNumbersContainer.innerHTML = "";
 
-    if (pageInfo) {
-      pageInfo.textContent = `Página ${currentPage} de ${totalPages}`;
+  for (let i = 1; i <= totalPages; i++) {
+    const btn = document.createElement("button");
+    btn.textContent = i;
+
+    if (i === currentPage) {
+      btn.classList.add("active");
     }
 
-    if (prevBtn) prevBtn.disabled = currentPage === 1;
-    if (nextBtn) nextBtn.disabled = currentPage === totalPages;
-  }
-
-  if (searchInput) {
-    searchInput.addEventListener("input", () => {
-      const value = searchInput.value.toLowerCase().trim();
-      currentPage = 1;
-
-      filteredCards = allCards.filter(card => {
-        const name = card.dataset.name?.toLowerCase() || "";
-        return name.includes(value);
-      });
-
+    btn.addEventListener("click", () => {
+      currentPage = i;
       renderPage();
+      window.scrollTo({ top: 0, behavior: "smooth" });
     });
-  }
 
-  if (prevBtn) {
-    prevBtn.addEventListener("click", () => {
-      if (currentPage > 1) {
-        currentPage--;
-        renderPage();
-      }
-    });
+    pageNumbersContainer.appendChild(btn);
   }
+}
 
-  if (nextBtn) {
-    nextBtn.addEventListener("click", () => {
-      const totalPages = Math.ceil(filteredCards.length / itemsPerPage);
-      if (currentPage < totalPages) {
-        currentPage++;
-        renderPage();
-      }
-    });
-  }
+function renderPage() {
+  const filteredCards = getFilteredCards();
+  const totalPages = Math.ceil(filteredCards.length / itemsPerPage) || 1;
 
-  renderPage();
-});
+  if (currentPage > totalPages) currentPage = totalPages;
+  if (currentPage < 1) currentPage = 1;
+
+  cards.forEach(card => (card.style.display = "none"));
+
+  filteredCards.forEach((card, index) => {
+    if (
+      index >= (currentPage - 1) * itemsPerPage &&
+      index < currentPage * itemsPerPage
+    ) {
+      card.style.display = "block";
+    }
+  });
+
+  renderPagination(totalPages);
+
+  if (prevBtn) prevBtn.disabled = currentPage === 1;
+  if (nextBtn) nextBtn.disabled = currentPage === totalPages;
+}
+
+// ==============================
+// EVENTOS
+// ==============================
+if (searchInput) {
+  searchInput.addEventListener("input", () => {
+    currentPage = 1;
+    renderPage();
+  });
+}
+
+if (prevBtn) {
+  prevBtn.addEventListener("click", () => {
+    currentPage--;
+    renderPage();
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  });
+}
+
+if (nextBtn) {
+  nextBtn.addEventListener("click", () => {
+    currentPage++;
+    renderPage();
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  });
+}
+
+// ==============================
+// INIT
+// ==============================
+renderPage();

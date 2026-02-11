@@ -40,7 +40,7 @@ body {
 .hero h1 {
   font-family: "Cormorant Garamond", serif;
   font-size: 30px;
-  font-weight: 00;
+  font-weight: 400;
   margin-top: 12px;
 }
 
@@ -102,26 +102,28 @@ body {
   max-width: 1200px;
   margin: auto;
   padding: 0 30px 100px;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 50px;
 }
 
 /* =========================
    CATÁLOGO – CARD
 ========================= */
+.perfume-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 30px;
+}
+
 .perfume-card {
   background: #fff;
   border-radius: 18px;
   padding: 24px;
   text-align: center;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
-  position: relative;
 }
 
 .perfume-card:hover {
   transform: translateY(-6px);
-  box-shadow: 0 18px 40px rgba(0,0,0,0.08);
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.08);
 }
 
 .perfume-card img {
@@ -141,7 +143,7 @@ body {
 }
 
 /* =========================
-   BOTÃO WHATSAPP (CATÁLOGO)
+   BOTÃO WHATSAPP
 ========================= */
 .cta {
   display: inline-block;
@@ -156,62 +158,6 @@ body {
 
 .cta:hover {
   background: var(--gold);
-  color: #fff;
-}
-
-/* =========================
-   CONTATO DA LOJA (HOME)
-========================= */
-.store-contact {
-  margin: 120px auto 80px;
-  text-align: center;
-}
-
-/* 🔥 LOGO CORRIGIDA */
-.store-contact .logo {
-  width: 280px;          
-  max-width: 90%;
-  height: auto;
-  margin: 0 auto 28px;
-  display: block;
-  display: flex;
-  align-items: flex-start;
-}
-
-.contact-buttons {
-  display: flex;
-  gap: 16px;
-  justify-content: center;
-  flex-wrap: wrap;
-}
-
-.contact-btn {
-  padding: 14px 28px;
-  border-radius: 30px;
-  border: 1px solid;
-  text-decoration: none;
-  font-size: 14px;
-  letter-spacing: 1px;
-  transition: all 0.3s ease;
-}
-
-.contact-btn.whatsapp {
-  color: #25d366;
-  border-color: #25d366;
-}
-
-.contact-btn.whatsapp:hover {
-  background: #25d366;
-  color: #fff;
-}
-
-.contact-btn.instagram {
-  color: #c13584;
-  border-color: #c13584;
-}
-
-.contact-btn.instagram:hover {
-  background: #c13584;
   color: #fff;
 }
 
@@ -233,7 +179,6 @@ body {
   text-decoration: none;
   color: var(--black);
   padding: 8px 4px;
-  transition: color 0.3s ease;
 }
 
 .categories a::after {
@@ -256,9 +201,8 @@ body {
 }
 
 /* =========================
-   BUSCA – ESTILO PREMIUM
+   BUSCA
 ========================= */
-.hero input,
 .search-input {
   width: 100%;
   max-width: 420px;
@@ -268,99 +212,62 @@ body {
   background: transparent;
   border: none;
   border-bottom: 1px solid #ccc;
-  color: var(--black);
-  transition: all 0.3s ease;
 }
 
-.hero input::placeholder,
-.search-input::placeholder {
-  color: #999;
-  letter-spacing: 1px;
-}
-
-.hero input:focus,
 .search-input:focus {
   outline: none;
   border-bottom-color: var(--gold);
 }
 
 /* =========================
-   ANIMAÇÕES – MOBILE & TOUCH
+   PAGINAÇÃO NUMÉRICA
 ========================= */
-.perfume-card:active,
-.home-card:active,
-.perfume-card:focus-within,
-.home-card:focus-within {
-  transform: translateY(-4px);
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin: 50px 0 20px;
 }
 
-.perfume-card:active img,
-.home-card:active img,
-.perfume-card:focus-within img,
-.home-card:focus-within img {
-  transform: scale(1.04);
+.pagination button {
+  min-width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid var(--gold);
+  background: transparent;
+  color: var(--gold);
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.25s ease;
 }
 
-.cta:active,
-.contact-btn:active {
-  transform: scale(0.96);
+.pagination button:hover {
+  background: var(--gold);
+  color: #111;
+}
+
+.pagination button.active {
+  background: var(--gold);
+  color: #111;
+  font-weight: 600;
+  cursor: default;
+}
+
+.pagination button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
 }
 
 /* =========================
    RESPONSIVO
 ========================= */
 @media (max-width: 768px) {
-  .hero h1 {
-    font-size: 28px;
+  .brand {
+    font-size: 48px;
   }
 
-  .home-catalog,
   #catalog {
     padding: 0 16px 60px;
-    gap: 32px;
   }
-
-  .store-contact .logo {
-    width: 140px;
-  }
-}
-
-.pagination {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 14px;
-  margin: 40px 0 20px;
-  font-family: "Montserrat", sans-serif;
-}
-
-.pagination button {
-  min-width: 84px;
-  height: 44px;
-  border-radius: 10%;
-  border: 1px solid #c9b37e;
-  background: transparent;
-  color: #c9b37e;
-  font-size: 20px;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.pagination button:hover {
-  background: #c9b37e;
-  color: #111;
-  transform: translateY(-2px);
-}
-
-.pagination button:disabled {
-  opacity: 0.4;
-  cursor: not-allowed;
-  transform: none;
-}
-
-#pageInfo {
-  font-size: 14px;
-  letter-spacing: 0.5px;
-  color: #555;
 }
